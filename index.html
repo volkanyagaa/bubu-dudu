@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bubu & Dudu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffecf2;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #d63384;
+        }
+
+        .gif-container {
+            margin-top: 50px;
+        }
+
+        .gif-container img {
+            width: 300px;
+            border-radius: 20px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 15px 25px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+
+        #loveMessage {
+            font-size: 26px;
+            color: #ff0066;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: pink;
+            transform: rotate(45deg);
+            animation: float 5s infinite ease-in;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: pink;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -7.5px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: -7.5px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-800px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Bubu ile Dudu 💞</h1>
+<div class="gif-container">
+    <img src="https://media.giphy.com/media/dYdEvXQpa1zqk/giphy.gif" alt="Bubu ve Dudu">
+</div>
+
+<h2>Beni seviyor musun?</h2>
+<div class="buttons">
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
+</div>
+
+<div id="loveMessage">Ben de seni çok seviyorum! 💖</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const loveMessage = document.getElementById("loveMessage");
+
+    noBtn.addEventListener("mouseover", () => {
+        const x = Math.floor(Math.random() * (window.innerWidth - 100));
+        const y = Math.floor(Math.random() * (window.innerHeight - 100));
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+        loveMessage.style.display = "block";
+    });
+
+    // Kalpler
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 300);
+</script>
+</body>
+</html>
