@@ -2,40 +2,77 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Volkan & Serenay</title>
+    <title>Bubu ve Dudu</title>
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: linear-gradient(135deg, #ffd6e0, #ffe7ba);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-        }
-
-        .hearts {
-            position: fixed;
-            width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            background: #fff0f5;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
         }
 
+        .gif-container img {
+            width: 200px;
+            height: auto;
+        }
+
+        h1 {
+            color: #d6336c;
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            position: relative;
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+
+        /* Kalpler */
         .heart {
+            position: absolute;
             width: 20px;
             height: 20px;
-            position: absolute;
-            background-color: red;
+            background: red;
             transform: rotate(45deg);
-            animation: floatUp 5s linear infinite;
+            animation: float 6s linear infinite;
+            opacity: 0.7;
         }
 
-        .heart::before, .heart::after {
+        .heart::before,
+        .heart::after {
             content: '';
             position: absolute;
             width: 20px;
             height: 20px;
-            background-color: red;
+            background: red;
             border-radius: 50%;
         }
 
@@ -49,113 +86,61 @@
             top: 0;
         }
 
-        @keyframes floatUp {
+        @keyframes float {
             0% {
-                transform: translateY(100vh) rotate(45deg);
+                transform: translateY(0) scale(1) rotate(45deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-10vh) rotate(45deg);
+                transform: translateY(-800px) scale(1.5) rotate(45deg);
                 opacity: 0;
             }
         }
 
-        .container {
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-        }
-
-        img {
-            width: 300px;
-            border-radius: 20px;
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #e60073;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #yes {
-            background-color: #ff66b2;
-            color: white;
-        }
-
-        #no {
-            background-color: #aaa;
-            color: white;
-            position: absolute;
-        }
-
-        #result {
-            display: none;
-            margin-top: 30px;
-            font-size: 28px;
-            color: #ff1493;
-        }
     </style>
 </head>
 <body>
-<div class="hearts"></div>
-<div class="container">
+<div class="gif-container">
     <img src="https://media.tenor.com/hmYv6-dCkGgAAAAj/bubu-dudu-bubu.gif" alt="Bubu ve Dudu">
-    <h1>Beni seviyor musun?</h1>
-    <div class="buttons">
-        <button id="yes">Evet</button>
-        <button id="no">Hayır</button>
-    </div>
-    <div id="result">Ben de seni seviyorum ❤️</div>
+</div>
+<h1>Beni seviyor musun?</h1>
+<div class="buttons">
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
 </div>
 
 <script>
-    const noButton = document.getElementById('no');
-    const yesButton = document.getElementById('yes');
-    const result = document.getElementById('result');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
 
-    noButton.addEventListener('mouseenter', () => {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        noButton.style.left = `${x}px`;
-        noButton.style.top = `${y}px`;
+    noBtn.addEventListener('mouseover', () => {
+        const i = Math.floor(Math.random() * window.innerWidth * 0.8);
+        const j = Math.floor(Math.random() * window.innerHeight * 0.8);
+        noBtn.style.left = i + 'px';
+        noBtn.style.top = j + 'px';
     });
 
-    yesButton.addEventListener('click', () => {
-        result.style.display = 'block';
+    yesBtn.addEventListener('click', () => {
+        alert("Ben de seni çok seviyorum ❤️");
     });
 
+    // Kalpler üret
     function createHeart() {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.top = '100vh';
-        heart.style.backgroundColor = randomColor();
-        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        document.querySelector('.hearts').appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.bottom = '0px';
+        heart.style.background = getRandomColor();
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
     }
 
-    function randomColor() {
-        const colors = ['#ff69b4', '#ff1493', '#db7093', '#ffb6c1', '#ffa07a'];
+    function getRandomColor() {
+        const colors = ['#ff6b6b', '#ff69b4', '#ff1493', '#db7093', '#ff8da1', '#f08080'];
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 200);
 </script>
 </body>
 </html>
