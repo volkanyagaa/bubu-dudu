@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bubu ve Dudu</title>
     <style>
         html, body {
@@ -19,35 +19,35 @@
         }
 
         .gif-container img {
-            width: min(200px, 40vw);
+            width: min(250px, 50vw);
             height: auto;
         }
 
-        h1, .love-message {
+        #question {
             color: #d6336c;
             font-size: 1.8rem;
-            text-align: center;
             margin: 1rem;
-            padding: 0 1rem;
+            text-align: center;
         }
 
         .buttons {
             position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: row;
             gap: 1rem;
-            flex-wrap: wrap;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         button {
             padding: 12px 24px;
             font-size: 1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
             min-width: 100px;
+            position: relative;
+            z-index: 2;
         }
 
         #yesBtn {
@@ -63,13 +63,16 @@
 
         .love-message {
             display: none;
+            color: #ff1493;
             font-size: 2rem;
-            animation: fadeIn 2s ease-in-out forwards;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out forwards;
+            padding: 0 1rem;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1.1); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .heart {
@@ -80,7 +83,7 @@
             transform: rotate(45deg);
             animation: float 6s linear infinite;
             opacity: 0.7;
-            z-index: -1;
+            z-index: 0;
         }
 
         .heart::before,
@@ -113,13 +116,13 @@
                 opacity: 0;
             }
         }
-
     </style>
 </head>
 <body>
 <div class="gif-container">
     <img src="https://media.tenor.com/hmYv6-dCkGgAAAAj/bubu-dudu-bubu.gif" alt="Bubu ve Dudu">
 </div>
+
 <h1 id="question">Beni seviyor musun?</h1>
 
 <div class="buttons" id="buttonContainer">
@@ -139,12 +142,13 @@
     const loveMessage = document.getElementById('loveMessage');
 
     noBtn.addEventListener('mouseover', () => {
-        const containerRect = buttons.getBoundingClientRect();
-        const maxLeft = containerRect.width - noBtn.offsetWidth;
-        const maxTop = containerRect.height - noBtn.offsetHeight;
+        const bodyWidth = window.innerWidth;
+        const bodyHeight = window.innerHeight;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
 
-        const randomLeft = Math.random() * maxLeft;
-        const randomTop = Math.random() * maxTop;
+        const randomLeft = Math.random() * (bodyWidth - btnWidth);
+        const randomTop = Math.random() * (bodyHeight - btnHeight - 100); // biraz yukarıda tutalım
 
         noBtn.style.left = `${randomLeft}px`;
         noBtn.style.top = `${randomTop}px`;
@@ -156,6 +160,7 @@
         loveMessage.style.display = 'block';
     });
 
+    // Kalpler
     function createHeart() {
         const heart = document.createElement('div');
         heart.className = 'heart';
