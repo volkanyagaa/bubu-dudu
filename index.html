@@ -23,10 +23,11 @@
             height: auto;
         }
 
-        h1 {
+        h1, .love-message {
             color: #d6336c;
             font-size: 2rem;
             margin: 20px 0;
+            text-align: center;
         }
 
         .buttons {
@@ -97,21 +98,45 @@
             }
         }
 
+        .love-message {
+            display: none;
+            font-size: 2.2rem;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
     </style>
 </head>
 <body>
 <div class="gif-container">
     <img src="https://media.tenor.com/hmYv6-dCkGgAAAAj/bubu-dudu-bubu.gif" alt="Bubu ve Dudu">
 </div>
-<h1>Beni seviyor musun?</h1>
-<div class="buttons">
+<h1 id="question">Beni seviyor musun?</h1>
+
+<div class="buttons" id="buttonContainer">
     <button id="yesBtn">Evet</button>
     <button id="noBtn">Hayır</button>
+</div>
+
+<div class="love-message" id="loveMessage">
+    Ben de seni çok seviyorum ❤️
 </div>
 
 <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
+    const question = document.getElementById('question');
+    const buttons = document.getElementById('buttonContainer');
+    const loveMessage = document.getElementById('loveMessage');
 
     noBtn.addEventListener('mouseover', () => {
         const i = Math.floor(Math.random() * window.innerWidth * 0.8);
@@ -121,7 +146,9 @@
     });
 
     yesBtn.addEventListener('click', () => {
-        alert("Ben de seni çok seviyorum ❤️");
+        question.style.display = 'none';
+        buttons.style.display = 'none';
+        loveMessage.style.display = 'block';
     });
 
     // Kalpler üret
